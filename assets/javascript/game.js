@@ -20,6 +20,7 @@
   // -How do I make sure that the computerGuess function is not resetting after each guess and instead allows the user 9 guesses before picking a new letter?
   // 
 
+
   var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
   // Creating variables to hold the number of wins, losses, guesses left, letters guessed.
@@ -34,33 +35,49 @@
   
   
   // This function is run whenever the user presses a key.
-  document.onkeyup = function(event) {
+document.onkeyup = function(event) {
   
     // Determines which key was pressed.
     var userGuess = event.key;
-
   
 
     if (computerGuess === userGuess) {
           wins++;
           guessesLeft=9;
           lettersGuessed.length=0;
+          computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+          // return to new computer choice
 
     }
       
-      else{
-          guessesLeft--;
-          lettersGuessed.push(userGuess);
-        if (lettersGuessed.length === 9) {
+    else{
+        guessesLeft--;
+        lettersGuessed.push(userGuess);
+      if (lettersGuessed.length === 9) {
           losses++;
           guessesLeft=9;
           lettersGuessed.length=0;
+          computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+          // return to new computer choice
         }
         }
 
+
+        
           if (userGuess) {
         reWriteStats();
       }
+
+      var html =
+      
+          "<p>wins: " + wins + "</p>" +
+          "<p>losses: " + losses + "</p>" +
+          "<p>guesses left: " + guessesLeft + "</p>" +
+          "<p>letters guessed: " + lettersGuessed + "</p>";
+
+        // Set the inner HTML contents of the #game div to our html string
+        document.querySelector("#game").innerHTML = html;
+
   
     // Only run the following code block if the user presses any letter.
   
@@ -79,12 +96,6 @@
         }
         
       
-          // how would i push letters guessed to letterGuessed array?
-      
-      // if (guessesLeft < 1) {
-      //   losses++;
-      //   }
-  
       
   
   
